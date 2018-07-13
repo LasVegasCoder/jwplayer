@@ -437,14 +437,14 @@ Object.assign(Controller.prototype, {
                 });
                 _beforePlay = false;
 
-                if (_inInteraction(window.event) && !mediaPool.primed()) {
+                if (!mediaPool.primed() && _inInteraction(window.event)) {
                     mediaPool.prime();
                 }
 
                 if (_interruptPlay) {
                     // Force tags to prime if we're about to play an ad
                     // Resetting the source in order to prime is OK since we'll be switching it anyway
-                    if (_inInteraction(window.event) && !_backgroundLoading) {
+                    if (!_backgroundLoading && _inInteraction(window.event)) {
                         _model.get('mediaElement').load();
                     }
                     _interruptPlay = false;
